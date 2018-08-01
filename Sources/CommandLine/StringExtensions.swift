@@ -57,7 +57,11 @@ internal extension String {
   func customSplit(by: Character, maxSplits: Int = 0) -> [String] {
     // var arguments:Array<String> = Array.init()
     var arguments = [String]()
-    for substr in self.split(separator: by, maxSplits: maxSplits) {
+    var swiftMaxSplits = maxSplits;
+    if maxSplits ==  0 {
+      swiftMaxSplits = Int.max
+    }
+    for substr in self.split(separator: by, maxSplits: swiftMaxSplits) {
         arguments.append(String(substr))
     }
     return arguments
