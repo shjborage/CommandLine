@@ -149,30 +149,6 @@ public class CommandLine {
     case optionHelp
   }
 
-  /** A ParseError is thrown if the `parse()` method fails. */
-  public enum ParseError: Error, CustomStringConvertible {
-    /** Thrown if an unrecognized argument is passed to `parse()` in strict mode */
-    case invalidArgument(String)
-
-    /** Thrown if the value for an Option is invalid (e.g. a string is passed to an IntOption) */
-    case invalidValueForOption(Option, [String])
-
-    /** Thrown if an Option with required: true is missing */
-    case missingRequiredOptions([Option])
-
-    public var description: String {
-      switch self {
-      case let .invalidArgument(arg):
-        return "Invalid argument: \(arg)"
-      case let .invalidValueForOption(opt, vals):
-        let vs = vals.joined(separator: ", ")
-        return "Invalid value(s) for option \(opt.flagDescription): \(vs)"
-      case let .missingRequiredOptions(opts):
-        return "Missing required options: \(opts.map { return $0.flagDescription })"
-      }
-    }
-  }
-
   /**
    * Initializes a CommandLine object.
    *
@@ -446,5 +422,29 @@ public class CommandLine {
   public func printUsage() {
     var out = StderrOutputStream.stream
     printUsage(&out)
+  }
+}
+
+/** A ParseError is thrown if the `parse()` method fails. */
+public enum ParseError: Error {
+  /** Thrown if an unrecognized argument is passed to `parse()` in strict mode */
+  case invalidArgument(String)
+
+  /** Thrown if the value for an Option is invalid (e.g. a string is passed to an IntOption) */
+  case invalidValueForOption(Option, [String])
+
+  /** Thrown if an Option with required: true is missing */
+  case missingRequiredOptions([Option])
+
+  public var description: String {
+    switch self {
+    case let .invalidArgument(arg):
+      return "Invalid argument: \(arg)"
+    case let .invalidValueForOption(opt, vals):
+      let vs = vals.joined(separator: ", ")
+      return "Invalid value(s) for option \(opt.flagDescription): \(vs)"
+    case let .missingRequiredOptions(opts):
+      return "Missing required options: \(opts.map { return $0.flagDescription })"
+    }
   }
 }

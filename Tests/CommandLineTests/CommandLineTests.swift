@@ -140,10 +140,10 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed invalid int option")
-    // } catch let CommandLine.ParseError.invalidValueForOption(opt, vals) {
-    //   XCTAssert(opt === e, "Incorrect option in ParseError: \(opt.longFlag)")
-    //   XCTAssertEqual(vals, ["bad"], "Incorrect values in ParseError: \(vals)")
-    //   XCTAssertNil(e.value, "Got non-nil value from invalid int")
+    } catch let ParseError.invalidValueForOption(opt, vals) {
+      XCTAssert(opt === e, "Incorrect option in ParseError: \(opt.longFlag)")
+      XCTAssertEqual(vals, ["bad"], "Incorrect values in ParseError: \(vals)")
+      XCTAssertNil(e.value, "Got non-nil value from invalid int")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -155,10 +155,10 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed int option with no value")
-    // } catch let CommandLine.ParseError.invalidValueForOption(opt, vals) {
-    //   XCTAssert(opt === f, "Incorrect option in ParseError: \(opt.longFlag)")
-    //   XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
-    //   XCTAssertNil(f.value, "Got non-nil value from no value int")
+    } catch let ParseError.invalidValueForOption(opt, vals) {
+      XCTAssert(opt === f, "Incorrect option in ParseError: \(opt.longFlag)")
+      XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
+      XCTAssertNil(f.value, "Got non-nil value from no value int")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -256,10 +256,10 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed invalid double option")
-    // } catch let CommandLine.ParseError.invalidValueForOption(opt, vals) {
-    //   XCTAssert(opt === f, "Incorrect option in ParseError: \(opt.longFlag)")
-    //   XCTAssertEqual(vals, ["bad"], "Incorrect values in ParseError: \(vals)")
-    //   XCTAssertNil(f.value, "Got non-nil value from invalid double")
+    } catch ParseError.invalidValueForOption(let opt, let vals) {
+      XCTAssert(opt === f, "Incorrect option in ParseError: \(opt.longFlag)")
+      XCTAssertEqual(vals, ["bad"], "Incorrect values in ParseError: \(vals)")
+      XCTAssertNil(f.value, "Got non-nil value from invalid double")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -272,10 +272,10 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed double option with no value")
-    // } catch let CommandLine.ParseError.invalidValueForOption(opt, vals) {
-    //   XCTAssert(opt === g, "Incorrect option in ParseError: \(opt.longFlag)")
-    //   XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
-    //   XCTAssertNil(g.value, "Got non-nil value from no value double")
+    } catch let ParseError.invalidValueForOption(opt, vals) {
+      XCTAssert(opt === g, "Incorrect option in ParseError: \(opt.longFlag)")
+      XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
+      XCTAssertNil(g.value, "Got non-nil value from no value double")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -343,10 +343,10 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed string option with no value")
-    // } catch let CommandLine.ParseError.invalidValueForOption(opt, vals) {
-    //   XCTAssert(opt === e, "Incorrect option in ParseError: \(opt.longFlag)")
-    //   XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
-    //   XCTAssertNil(e.value, "Got non-nil value from no value string")
+    } catch let ParseError.invalidValueForOption(opt, vals) {
+      XCTAssert(opt === e, "Incorrect option in ParseError: \(opt.longFlag)")
+      XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
+      XCTAssertNil(e.value, "Got non-nil value from no value string")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -389,10 +389,10 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed multi string option with no value")
-    // } catch let CommandLine.ParseError.invalidValueForOption(opt, vals) {
-    //   XCTAssert(opt === e, "Incorrect option in ParseError: \(opt.longFlag)")
-    //   XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
-    //   XCTAssertNil(e.value, "Got non-nil value from no value multistring")
+    } catch let ParseError.invalidValueForOption(opt, vals) {
+      XCTAssert(opt === e, "Incorrect option in ParseError: \(opt.longFlag)")
+      XCTAssertEqual(vals, [], "Incorrect values in ParseError: \(vals)")
+      XCTAssertNil(e.value, "Got non-nil value from no value multistring")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -428,9 +428,9 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse()
       XCTFail("Parsed missing required option")
-    // } catch let CommandLine.ParseError.missingRequiredOptions(opts) {
-    //   XCTAssert(opts[0] === c, "Failed to identify missing required options: \(opts)")
-    //   XCTAssertNil(c.value, "Got non-nil value from missing option")
+    } catch let ParseError.missingRequiredOptions(opts) {
+      XCTAssert(opts[0] === c, "Failed to identify missing required options: \(opts)")
+      XCTAssertNil(c.value, "Got non-nil value from missing option")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -706,8 +706,8 @@ internal class CommandLineTests: XCTestCase {
     do {
       try cli.parse(strict: true)
       XCTFail("Successfully parsed invalid flags in strict mode")
-    // } catch let CommandLine.ParseError.invalidArgument(arg) {
-    //   XCTAssertEqual(arg, "--invalid", "Incorrect argument identified in InvalidArgument: \(arg)")
+    } catch let ParseError.invalidArgument(arg) {
+      XCTAssertEqual(arg, "--invalid", "Incorrect argument identified in InvalidArgument: \(arg)")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -844,7 +844,7 @@ internal class CommandLineTests: XCTestCase {
       fclose(null)
     }
 
-    let error = CommandLine.ParseError.invalidArgument("ack")
+    let error = ParseError.invalidArgument("ack")
 
     /* Just make sure these doesn't crash or throw */
     cli.printUsage()
