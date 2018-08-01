@@ -887,18 +887,15 @@ internal class CommandLineTests: XCTestCase {
     } catch {
       var out = ""
       cli.printUsage(error, to: &out)
-    //   print(out)
-    //   let o = out.customSplit(by: "\n")
-    //   print("out:\(out) o \(o.count)")
-    //   XCTAssertTrue(o[0].hasPrefix("[ERROR]"))
-    //   XCTAssertTrue(o[1].hasPrefix("[ABOUT]"))
+      let o = out.customSplit(by: "\n")
+      XCTAssertTrue(o[0].hasPrefix("[ERROR]"))
+      XCTAssertTrue(o[1].hasPrefix("[ABOUT]"))
 
-    //   let range = stride(from: 2, to: opts.count, by: 2)
-    //   print("range: \(range) count:\(o.count)")
-    //   for i in range {
-    //     XCTAssertTrue(o[i].hasPrefix("[FLAG]"))
-    //     XCTAssertTrue(o[i + 1].hasPrefix("[HELP]"))
-    //   }
+      let range = stride(from: 2, to: opts.count, by: 2)
+      for i in range {
+        XCTAssertTrue(o[i].hasPrefix("[FLAG]"))
+        XCTAssertTrue(o[i + 1].hasPrefix("[HELP]"))
+      }
     }
   }
 }

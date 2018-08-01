@@ -426,7 +426,7 @@ public class CommandLine {
 }
 
 /** A ParseError is thrown if the `parse()` method fails. */
-public enum ParseError: Error {
+public enum ParseError: Error, CustomStringConvertible {
   /** Thrown if an unrecognized argument is passed to `parse()` in strict mode */
   case invalidArgument(String)
 
