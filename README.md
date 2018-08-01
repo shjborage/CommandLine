@@ -9,9 +9,9 @@ A pure Swift library for creating command-line interfaces.
 CommandLine aims to have a simple and self-explanatory API.
 
 ```swift
-import CommandLineKit
+import CommandLine
 
-let cli = CommandLineKit.CommandLine()
+let cli = CommandLine()
 
 let filePath = StringOption(shortFlag: "f", longFlag: "file", required: true,
   helpMessage: "Path to the output file.")
@@ -38,7 +38,7 @@ print("Verbosity is \(verbosity.value)")
 
 See `Option.swift` for additional Option types.
 
-To use CommandLineKit in your project, add it to your workspace, then add CommandLineKit.framework to the __Build Phases / Link Binary With Libraries__ setting of your target.
+To use CommandLineKit in your project, add it to your workspace, then add CommandLine.framework to the __Build Phases / Link Binary With Libraries__ setting of your target.
 
 If you are building a command-line tool and need to embed this and other frameworks to it, follow the steps in http://colemancda.github.io/programming/2015/02/12/embedded-swift-frameworks-osx-command-line-tools/ to link Swift frameworks to your command-line tool.
 
@@ -125,7 +125,7 @@ enum Operation: String {
   case verify  = "v"
 }
 
-let cli = CommandLineKit.CommandLine()
+let cli = CommandLine()
 let op = EnumOption<Operation>(shortFlag: "o", longFlag: "operation", required: true,
   helpMessage: "File operation - c for create, x for extract, l for list, or v for verify.")
 cli.setOptions(op)

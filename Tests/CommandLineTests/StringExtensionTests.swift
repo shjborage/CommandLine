@@ -17,7 +17,7 @@
 
 import Foundation
 import XCTest
-@testable import CommandLineKit
+@testable import CommandLine
 
 class StringExtensionTests: XCTestCase {
   static var allTests : [(String, (StringExtensionTests) -> () throws -> Void)] {
@@ -134,13 +134,13 @@ class StringExtensionTests: XCTestCase {
 
   func testWrapped() {
     let lipsum = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    for line in lipsum.wrapped(atWidth: 80).split(by: "\n") {
+    for line in lipsum.wrapped(atWidth: 80).customSplit(by: "\n") {
       XCTAssertLessThanOrEqual(line.characters.count, 80, "Failed to wrap long line: \(line)")
     }
 
     /* Words longer than the wrap width should not be split */
     let longWords = "Lorem ipsum consectetur adipisicing eiusmod tempor incididunt"
-    let lines = longWords.wrapped(atWidth: 3).split(by: "\n")
+    let lines = longWords.wrapped(atWidth: 3).customSplit(by: "\n")
     XCTAssertEqual(lines.count, 8, "Failed to wrap long words")
     for line in lines {
       XCTAssertGreaterThan(line.characters.count, 3, "Bad long word wrapping on line: \(line)")
