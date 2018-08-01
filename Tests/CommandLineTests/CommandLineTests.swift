@@ -807,7 +807,7 @@ internal class CommandLineTests: XCTestCase {
     XCTAssertGreaterThan(out.characters.count, 0)
 
     /* There should be at least 2 lines per option, plus the intro Usage statement */
-    XCTAssertGreaterThanOrEqual(out.split(by: "\n").count, (opts.count * 2) + 1)
+    XCTAssertGreaterThanOrEqual(out.customSplit(by: "\n").count, (opts.count * 2) + 1)
   }
 
   func testPrintUsageError() {

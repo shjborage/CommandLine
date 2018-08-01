@@ -97,16 +97,16 @@ class StringExtensionTests: XCTestCase {
   }
 
   func testSplit() {
-    let a = "1,2,3".split(by: ",")
+    let a = "1,2,3".customSplit(by: ",")
     XCTAssertEqual(a.count, 3, "Failed to split into correct number of components")
 
-    let b = "123".split(by: ",")
+    let b = "123".customSplit(by: ",")
     XCTAssertEqual(b.count, 1, "Failed to split when separator not found")
 
-    let c = "".split(by: ",")
+    let c = "".customSplit(by: ",")
     XCTAssertEqual(c.count, 0, "Splitting empty string should return empty array")
 
-    let e = "a-b-c-d".split(by: "-", maxSplits: 2)
+    let e = "a-b-c-d".customSplit(by: "-", maxSplits: 2)
     XCTAssertEqual(e.count, 3, "Failed to limit splits")
     XCTAssertEqual(e[0], "a", "Invalid value for split 1")
     XCTAssertEqual(e[1], "b", "Invalid value for split 2")
